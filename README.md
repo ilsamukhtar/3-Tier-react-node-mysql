@@ -196,7 +196,7 @@ Source: 0.0.0.0/0
 
 ---
 
-## 🙏 Credits & Acknowledgements
+##  Credits & Acknowledgements
 
 | Role | Person |
 |------|--------|
@@ -207,7 +207,7 @@ Source: 0.0.0.0/0
 
 ## 👩‍💻 Author
 
-**[Tumhara Naam]**
+**[ILSA MUKHTAR]**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://linkedin.com/in/ilsa-mukhtar)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=flat&logo=github)](https://github.com/ilsamukhtar)
