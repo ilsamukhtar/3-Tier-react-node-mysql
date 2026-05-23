@@ -181,6 +181,46 @@ Source: 0.0.0.0/0
 🔌 Backend  : http://YOUR_EC2_IP:3000
 ```
 
+## 📸 Screenshots
+
+### 🖥️ Frontend UI
+![Frontend](assets/frontend-home.png)
+
+### ➕ Add User
+![Add User](assets/add-user.png)
+
+### ✏️ Edit User
+![Edit User](assets/edit-user.png)
+
+### 🗑️ Delete User
+![Delete User](assets/delete-user.png)
+
+### 📋 User List
+![User List](assets/added-user-list.png)
+
+---
+
+### ⚙️ Backend
+![Backend](assets/backend.png)
+
+### 📡 PM2 Status
+![PM2](assets/pm2-status.png)
+
+---
+
+### ☁️ AWS EC2 Instance
+![EC2](assets/ec2-instance.png)
+
+### 🔐 Security Group
+![Security Group](assets/security-group.png)
+
+---
+
+### 🏗️ Architecture Diagram
+![Architecture](assets/architecture.png)
+
+---
+
 
 ## 📚 What I Learned
 
