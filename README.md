@@ -47,6 +47,30 @@ configuration, process management, and full-stack application deployment on AWS.
                                │   Port: 3306             │
                                └──────────────────────────┘
 ```
+---
+
+## 🔄 CI/CD Pipeline
+
+```
+Developer pushes code to GitHub
+            ↓
+GitHub Actions workflow triggers
+            ↓
+Self-Hosted Runner on EC2 picks up job
+            ↓
+Installs dependencies (npm install)
+            ↓
+Restarts PM2 processes automatically
+            ↓
+App deployed in ~27 seconds! ✅
+```
+
+| GitHub Actions | Deploy Success |
+|----------------|----------------|
+| ![cicd](assets/github-actions.png) | ![deploy](assets/deploy-success.png) |
+
+---
+
 
 ---
 
@@ -58,7 +82,7 @@ configuration, process management, and full-stack application deployment on AWS.
 - 🗑️ **Delete** — Remove user records
 - 🔄 **REST API** — Clean API endpoints
 - ☁️ **Cloud Deployed** — Live on AWS EC2
-
+- 🤖 **Auto Deploy** — GitHub Actions CI/CD
 ---
 
 ## 🛠️ Tech Stack
@@ -71,6 +95,7 @@ configuration, process management, and full-stack application deployment on AWS.
 | 🔄 Process Manager | PM2 | 24/7 App Running |
 | ☁️ Cloud Server | AWS EC2 (Ubuntu) | Hosting |
 | 🔒 Security | AWS Security Groups | Port Management |
+| 🤖 CI/CD | GitHub Actions + Self-Hosted Runner | Auto Deployment |
 | 📦 Version Control | Git + GitHub | Source Code |
 
 ---
@@ -174,8 +199,27 @@ AWS Console → EC2 → Security Groups → Inbound Rules → Add:
 ✅ Port 5000 — Frontend App
 Source: 0.0.0.0/0
 ```
+### Step 6 — Setup CI/CD (GitHub Actions Self-Hosted Runner)
+```bash
+# Create runner directory
+mkdir actions-runner && cd actions-runner
 
-### Step 6 — Access Application
+# Download runner
+curl -o actions-runner-linux-x64-2.334.0.tar.gz -L \
+https://github.com/actions/runner/releases/download/v2.334.0/actions-runner-linux-x64-2.334.0.tar.gz
+
+# Extract
+tar xzf ./actions-runner-linux-x64-2.334.0.tar.gz
+
+# Configure (get token from GitHub → Settings → Actions → Runners)
+./config.sh --url https://github.com/YOUR_USERNAME/YOUR_REPO --token YOUR_TOKEN
+
+# Install as service
+sudo ./svc.sh install
+sudo ./svc.sh start
+```
+
+### Step 7 — Access Application
 ```
 🌐 Frontend : http://YOUR_EC2_IP:5000
 🔌 Backend  : http://YOUR_EC2_IP:3000
@@ -216,6 +260,9 @@ Source: 0.0.0.0/0
 
 ---
 
+### 🔄 GitHub Actions CI/CD
+![GitHub Actions](assets/github-actions.png)
+
 ### 🏗️ Architecture Diagram
 ![Architecture](assets/architecture.png)
 
@@ -232,6 +279,9 @@ Source: 0.0.0.0/0
 ✅ AWS Security Groups and port management
 ✅ Environment variables configuration
 ✅ End-to-end 3-tier architecture deployment
+✅ GitHub Actions CI/CD pipeline setup
+✅ Self-hosted runner configuration on EC2
+✅ Automated deployment on every code push
 ```
 
 ---
