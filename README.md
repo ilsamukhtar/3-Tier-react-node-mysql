@@ -66,7 +66,7 @@ App deployed in ~27 seconds! ✅
 ```
 
 | Deploy Success |
-|----------------|----------------|
+|----------------|
 | ![cicd](assets/github-actions.png) |
 
 ---
