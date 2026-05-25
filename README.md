@@ -245,7 +245,7 @@ sudo ./svc.sh start
 ---
 
 ### ⚙️ Backend
-![Backend](assets/backend.png)
+![Backend](assets/backend-page.png)
 
 ### 📡 PM2 Status
 ![PM2](assets/pm2-status.png)
