@@ -65,7 +65,7 @@ Restarts PM2 processes automatically
 App deployed in ~27 seconds! ✅
 ```
 
-| Deploy Success |
+|✅ Deploy Success |
 |----------------|
 | ![cicd](assets/github-actions.png) |
 
