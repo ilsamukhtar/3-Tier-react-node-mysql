@@ -107,7 +107,7 @@ App automatically deployed! ✅
 | 🖥️ Frontend | React.js + Vite + Axios | User Interface |
 | ⚙️ Backend | Node.js + Express + Sequelize | REST API |
 | 🗄️ Database | MySQL | Data Storage |
-| 🔄 Process Manager | PM2 | 24/7 App Running |
+| 🔄 Process Manager | PM2 | Phase 1 Deployment |
 | 🐳 Containers | Docker | Phase 2 Deployment |
 | ☁️ Cloud Server | AWS EC2 (Ubuntu) | Hosting |
 | 🔒 Security | AWS Security Groups | Port Management |
