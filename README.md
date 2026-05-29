@@ -73,8 +73,8 @@ GitHub Actions workflow triggers
             ↓
 Self-Hosted Runner on EC2 picks up job
             ↓
-Phase 1: PM2 restart होता था
-Phase 2: Docker containers rebuild होتے ہیں
+Phase 1: PM2 restart
+Phase 2: Docker containers rebuild
             ↓
 App automatically deployed! ✅
 ```
@@ -138,84 +138,8 @@ Before you begin, make sure you have:
 
 ---
 
-## 🚀🚀  Deployment Steps
+## 🚀🚀  Deployment Phases
 
-### Step 1 — Clone Repository
-```bash
-git clone https://github.com/ilsamukhtar/3tier-react-node-mysql.git
-cd 3tier-react-node-mysql
-```
-
-### Step 2 — MySQL Database Setup
-```bash
-sudo mysql
-```
-```sql
-CREATE DATABASE crud_operations;
-CREATE USER 'cruduser'@'localhost' IDENTIFIED BY 'Password@123';
-GRANT ALL PRIVILEGES ON crud_operations.* TO 'cruduser'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-```
-
-### Step 3 — Backend Setup
-```bash
-# Go to backend folder
-cd backend
-
-# Install dependencies
-npm install
-
-# Create environment file
-cp .env.example .env
-nano .env
-```
-Add these values in `.env`:
-```env
-DB_HOST=localhost
-DB_USER=cruduser
-DB_PASSWORD=Password@123
-DB_DATABASE=crud_operations
-```
-```bash
-# Start backend with PM2
-pm2 start index.js --name api-server --watch --env PORT=3000
-
-# Check status
-pm2 status
-```
-
-### Step 4 — Frontend Setup
-```bash
-# Go to frontend folder
-cd ../frontend
-
-# Install dependencies
-npm install
-
-# Create environment file
-cp .env.example .env
-nano .env
-```
-Add this value in `.env`:
-```env
-VITE_API_URL=http://YOUR_EC2_PUBLIC_IP:3000
-```
-```bash
-# Start frontend with PM2
-pm2 start npm --name "react-app" -- run dev -- --host 0.0.0.0
-
-# Check status
-pm2 status
-```
-
-### Step 5 — AWS Security Group
-```
-AWS Console → EC2 → Security Groups → Inbound Rules → Add:
-✅ Port 3000 — Backend API
-✅ Port 5000 — Frontend App
-Source: 0.0.0.0/0
-```
 ## 🚀 Phase 1 — PM2 Deployment Steps
 
 ### Step 1 — Clone Repository
