@@ -47,6 +47,19 @@ configuration, process management, and full-stack application deployment on AWS.
                                │   Port: 3306             │
                                └──────────────────────────┘
 ```
+## 🚀 Deployment Journey
+
+### Phase 1 — PM2 Deployment
+```
+Code → EC2 → PM2 → App Running
+GitHub Actions → Self-Hosted Runner → PM2 Restart
+```
+
+### Phase 2 — Docker Deployment
+```
+Code → EC2 → Docker Containers → App Running
+GitHub Actions → Self-Hosted Runner → Docker Build & Run
+```
 ---
 
 ## 🔄 CI/CD Pipeline
@@ -58,16 +71,15 @@ GitHub Actions workflow triggers
             ↓
 Self-Hosted Runner on EC2 picks up job
             ↓
-Installs dependencies (npm install)
+Phase 1: PM2 restart होता था
+Phase 2: Docker containers rebuild होتے ہیں
             ↓
-Restarts PM2 processes automatically
-            ↓
-App deployed in ~27 seconds! ✅
+App automatically deployed! ✅
 ```
 
-|✅ Deploy Success |
-|----------------|
-| ![cicd](assets/github-actions.png) |
+| ✅ PM2 Deploy Success | ✅ Docker Deploy Success |
+|----------------------|------------------------|
+| ![cicd](assets/github-actions.png) | ![docker](assets/docker-success.png) |
 
 ---
 
@@ -83,6 +95,7 @@ App deployed in ~27 seconds! ✅
 - 🔄 **REST API** — Clean API endpoints
 - ☁️ **Cloud Deployed** — Live on AWS EC2
 - 🤖 **Auto Deploy** — GitHub Actions CI/CD
+- 🐳 **Dockerized** — Frontend & Backend in separate containers
 ---
 
 ## 🛠️ Tech Stack
@@ -93,6 +106,7 @@ App deployed in ~27 seconds! ✅
 | ⚙️ Backend | Node.js + Express + Sequelize | REST API |
 | 🗄️ Database | MySQL | Data Storage |
 | 🔄 Process Manager | PM2 | 24/7 App Running |
+| 🐳 Containers | Docker | Phase 2 Deployment |
 | ☁️ Cloud Server | AWS EC2 (Ubuntu) | Hosting |
 | 🔒 Security | AWS Security Groups | Port Management |
 | 🤖 CI/CD | GitHub Actions + Self-Hosted Runner | Auto Deployment |
@@ -117,6 +131,7 @@ Before you begin, make sure you have:
 - ✅ Node.js v18+
 - ✅ MySQL installed
 - ✅ PM2 installed globally
+- ✅ Docker installed
 - ✅ Git installed
 
 ---
@@ -199,19 +214,137 @@ AWS Console → EC2 → Security Groups → Inbound Rules → Add:
 ✅ Port 5000 — Frontend App
 Source: 0.0.0.0/0
 ```
-### Step 6 — Setup CI/CD (GitHub Actions Self-Hosted Runner)
+## 🚀 Phase 1 — PM2 Deployment Steps
+
+### Step 1 — Clone Repository
 ```bash
-# Create runner directory
+git clone https://github.com/ilsamukhtar/3-Tier-react-node-mysql.git
+cd 3-Tier-react-node-mysql
+```
+
+### Step 2 — MySQL Database Setup
+```bash
+sudo mysql
+```
+```sql
+CREATE DATABASE crud_operations;
+CREATE USER 'cruduser'@'localhost' IDENTIFIED BY 'Password@123';
+GRANT ALL PRIVILEGES ON crud_operations.* TO 'cruduser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+### Step 3 — Backend Setup
+```bash
+cd backend
+npm install
+cp .env.example .env
+nano .env
+```
+```env
+DB_HOST=localhost
+DB_USER=cruduser
+DB_PASSWORD=Password@123
+DB_DATABASE=crud_operations
+```
+```bash
+pm2 start index.js --name api-server --watch --env PORT=3000
+pm2 status
+```
+
+### Step 4 — Frontend Setup
+```bash
+cd ../frontend
+npm install
+cp .env.example .env
+nano .env
+```
+```env
+VITE_API_URL=http://YOUR_EC2_PUBLIC_IP:3000
+```
+```bash
+pm2 start npm --name "react-app" -- run dev -- --host 0.0.0.0
+pm2 status
+```
+
+### Step 5 — AWS Security Group
+```
+Port 3000 → Backend API
+Port 5000 → Frontend App
+Source: 0.0.0.0/0
+```
+
+---
+
+## 🐳 Phase 2 — Docker Deployment Steps
+
+### Step 1 — Backend Dockerfile
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["node", "index.js"]
+```
+
+### Step 2 — Frontend Dockerfile
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5000
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+```
+
+### Step 3 — MySQL Setup for Docker
+```bash
+sudo mysql
+```
+```sql
+CREATE USER 'cruduser'@'%' IDENTIFIED BY 'Password@123';
+GRANT ALL PRIVILEGES ON crud_operations.* TO 'cruduser'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+### Step 4 — Backend .env for Docker
+```env
+DB_HOST=172.17.0.1
+DB_USER=cruduser
+DB_PASSWORD=Password@123
+DB_DATABASE=crud_operations
+```
+
+### Step 5 — Build & Run Containers
+```bash
+# Backend
+docker build -t backend-app ./backend
+docker run -d --name backend-container -p 3000:3000 --env-file backend/.env backend-app
+
+# Frontend
+docker build -t frontend-app ./frontend
+docker run -d --name frontend-container -p 5000:5000 frontend-app
+
+# Check
+docker ps
+```
+
+---
+
+## 🤖 GitHub Actions Self-Hosted Runner Setup
+
+```bash
 mkdir actions-runner && cd actions-runner
 
-# Download runner
 curl -o actions-runner-linux-x64-2.334.0.tar.gz -L \
 https://github.com/actions/runner/releases/download/v2.334.0/actions-runner-linux-x64-2.334.0.tar.gz
 
-# Extract
 tar xzf ./actions-runner-linux-x64-2.334.0.tar.gz
 
-# Configure (get token from GitHub → Settings → Actions → Runners)
 ./config.sh --url https://github.com/YOUR_USERNAME/YOUR_REPO --token YOUR_TOKEN
 
 # Install as service
@@ -242,15 +375,14 @@ sudo ./svc.sh start
 ### 📋 User List
 ![User List](assets/added-user-list.png)
 
----
-
-### ⚙️ Backend
+### ⚙️ Backend API
 ![Backend](assets/backend-page.png)
 
 ### 📡 PM2 Status
 ![PM2](assets/pm2-status.png)
 
----
+### 🐳 Docker Containers Running
+![Docker](assets/docker-ps.png)
 
 ### ☁️ AWS EC2 Instance
 ![EC2](assets/ec2-instance.png)
@@ -258,10 +390,11 @@ sudo ./svc.sh start
 ### 🔐 Security Group
 ![Security Group](assets/security-group.png)
 
----
-
-### 🔄 GitHub Actions CI/CD
+### 🔄 GitHub Actions — PM2 Deploy
 ![GitHub Actions](assets/github-actions.png)
+
+### 🐳 GitHub Actions — Docker Deploy
+![Docker Deploy](assets/docker-success.png)
 
 ### 🏗️ Architecture Diagram
 ![Architecture](assets/architecture.png)
@@ -282,7 +415,20 @@ sudo ./svc.sh start
 ✅ GitHub Actions CI/CD pipeline setup
 ✅ Self-hosted runner configuration on EC2
 ✅ Automated deployment on every code push
+✅ Docker containerization of frontend & backend
+✅ Running separate containers for each tier
+✅ Docker networking with local MySQL
 ```
+---
+
+## 🗂️ Workflow Files
+
+| File | Purpose |
+|------|---------|
+| `deploy.yml` | Phase 1 — PM2 deployment |
+| `deploy-docker.yml` | Phase 2 — Docker deployment |
+
+---
 
 ---
 
