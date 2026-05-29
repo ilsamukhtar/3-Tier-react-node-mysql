@@ -243,6 +243,7 @@ DB_HOST=172.17.0.1
 DB_USER=cruduser
 DB_PASSWORD=Password@123
 DB_DATABASE=crud_operations
+DB_TABLENAME=users
 ```
 
 ### Step 5 — Build & Run Containers
