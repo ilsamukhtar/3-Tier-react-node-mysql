@@ -1,0 +1,49 @@
+name: Deploy with Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Stop old containers
+        run: |
+          docker stop backend-container || true
+          docker stop frontend-container || true
+          docker rm backend-container || true
+          docker rm frontend-container || true
+
+      - name: Build backend image
+        run: |
+          cd backend
+          docker build -t backend-app .
+
+      - name: Build frontend image
+        run: |
+          cd frontend
+          docker build -t frontend-app .
+
+      - name: Run backend container
+        run: |
+          docker run -d \
+            --name backend-container \
+            -p 3000:3000 \
+            --env-file backend/.env \
+            backend-app
+
+      - name: Run frontend container
+        run: |
+          docker run -d \
+            --name frontend-container \
+            -p 5000:5000 \
+            frontend-app
+
+      - name: Check running containers
+        run: docker ps
