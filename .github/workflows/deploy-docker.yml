@@ -37,6 +37,7 @@ jobs:
           DB_USER=cruduser
           DB_PASSWORD=Password@123
           DB_DATABASE=crud_operations
+          DB_TABLENAME=users
           EOF
 
       - name: Run backend container
