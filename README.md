@@ -125,7 +125,7 @@ Before you begin, make sure you have:
 
 ### Step 1 — Clone Repository
 ```bash
-git clone https://github.com/TUMHARA_USERNAME/3tier-react-node-mysql.git
+git clone https://github.com/YOUR_USERNAME/3tier-react-node-mysql.git
 cd 3tier-react-node-mysql
 ```
 
