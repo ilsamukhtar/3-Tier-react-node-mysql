@@ -4,7 +4,9 @@
 ![React](https://img.shields.io/badge/React-Vite-blue?style=for-the-badge&logo=react)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-green?style=for-the-badge&logo=node.js)
 ![MySQL](https://img.shields.io/badge/Database-MySQL-blue?style=for-the-badge&logo=mysql)
+![Docker](https://img.shields.io/badge/Docker-Containers-2496ed?style=for-the-badge&logo=docker)
 ![PM2](https://img.shields.io/badge/Process_Manager-PM2-red?style=for-the-badge)
+![GitHub Actions](https://img.shields.io/badge/CI/CD-GitHub_Actions-black?style=for-the-badge&logo=github-actions)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 ---
