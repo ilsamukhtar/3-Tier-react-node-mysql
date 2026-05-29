@@ -30,6 +30,15 @@ jobs:
           cd frontend
           sudo docker build -t frontend-app .
 
+      - name: Create backend env file
+        run: |
+          cat > backend/.env << EOF
+          DB_HOST=172.17.0.1
+          DB_USER=cruduser
+          DB_PASSWORD=Password@123
+          DB_DATABASE=crud_operations
+          EOF
+
       - name: Run backend container
         run: |
           sudo docker run -d \
