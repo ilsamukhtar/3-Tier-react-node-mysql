@@ -1,4 +1,4 @@
-# 🚀 Three-Tier CRUD Application on AWS EC2
+#  Three-Tier CRUD Application on AWS EC2
 
 ![AWS](https://img.shields.io/badge/AWS-EC2-orange?style=for-the-badge&logo=amazon-aws)
 ![React](https://img.shields.io/badge/React-Vite-blue?style=for-the-badge&logo=react)
@@ -17,12 +17,12 @@ A **production-style Three-Tier CRUD Web Application** deployed on **AWS EC2**.
 This project demonstrates real-world cloud deployment skills including server
 configuration, process management, and full-stack application deployment on AWS.
 
-> 💡 Built as part of my DevOps learning journey under the guidance of
+>   Built as part of my DevOps learning journey under the guidance of
 > **[Awais Latif](https://www.linkedin.com/in/awais-latif)** — Senior DevOps Engineer
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
                     ┌─────────────────────┐
@@ -49,7 +49,7 @@ configuration, process management, and full-stack application deployment on AWS.
                                │   Port: 3306             │
                                └──────────────────────────┘
 ```
-## 🚀 Deployment Journey
+##  Deployment Journey
 
 ### Phase 1 — PM2 Deployment
 ```
@@ -64,7 +64,7 @@ GitHub Actions → Self-Hosted Runner → Docker Build & Run
 ```
 ---
 
-## 🔄 CI/CD Pipeline
+##  CI/CD Pipeline
 
 ```
 Developer pushes code to GitHub
@@ -88,7 +88,7 @@ App automatically deployed! ✅
 
 ---
 
-## ✨ Features
+##  Features
 
 - ➕ **Create** — Add new user records
 - 👁️ **Read** — View all users in a table
@@ -100,7 +100,7 @@ App automatically deployed! ✅
 - 🐳 **Dockerized** — Frontend & Backend in separate containers
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
@@ -116,7 +116,7 @@ App automatically deployed! ✅
 
 ---
 
-## ☁️ AWS Services Used
+##  AWS Services Used
 
 | Service | Usage |
 |---------|-------|
@@ -125,7 +125,7 @@ App automatically deployed! ✅
 
 ---
 
-## 📋 Prerequisites
+##  Prerequisites
 
 Before you begin, make sure you have:
 
@@ -138,9 +138,9 @@ Before you begin, make sure you have:
 
 ---
 
-## 🚀🚀  Deployment Phases
+##   Deployment Phases
 
-## 🚀 Phase 1 — PM2 Deployment Steps
+##  Phase 1 — PM2 Deployment Steps
 
 ### Step 1 — Clone Repository
 ```bash
@@ -202,7 +202,7 @@ Source: 0.0.0.0/0
 
 ---
 
-## 🐳 Phase 2 — Docker Deployment Steps
+##  Phase 2 — Docker Deployment Steps
 
 ### Step 1 — Backend Dockerfile
 ```dockerfile
@@ -262,7 +262,7 @@ docker ps
 
 ---
 
-## 🤖 GitHub Actions Self-Hosted Runner Setup
+##  GitHub Actions Self-Hosted Runner Setup
 
 ```bash
 mkdir actions-runner && cd actions-runner
@@ -285,51 +285,51 @@ sudo ./svc.sh start
 🔌 Backend  : http://YOUR_EC2_IP:3000
 ```
 
-## 📸 Screenshots
+##  Screenshots
 
-### 🖥️ Frontend UI
+###  Frontend UI
 ![Frontend](assets/frontend-home.png)
 
-### ➕ Add User
+###  Add User
 ![Add User](assets/add-user.png)
 
-### ✏️ Edit User
+###  Edit User
 ![Edit User](assets/edit-user.png)
 
-### 🗑️ Delete User
+###  Delete User
 ![Delete User](assets/delete-user.png)
 
-### 📋 User List
+###  User List
 ![User List](assets/added-user-list.png)
 
-### ⚙️ Backend API
+###  Backend API
 ![Backend](assets/backend-page.png)
 
-### 📡 PM2 Status
+###  PM2 Status
 ![PM2](assets/pm2-status.png)
 
-### 🐳 Docker Containers Running
+###  Docker Containers Running
 ![Docker](assets/docker-ps.png)
 
-### ☁️ AWS EC2 Instance
+###  AWS EC2 Instance
 ![EC2](assets/ec2-instance.png)
 
-### 🔐 Security Group
+###  Security Group
 ![Security Group](assets/security-group.png)
 
-### 🔄 GitHub Actions — PM2 Deploy
+###  GitHub Actions — PM2 Deploy
 ![GitHub Actions](assets/github-actions.png)
 
-### 🐳 GitHub Actions — Docker Deploy
+###  GitHub Actions — Docker Deploy
 ![Docker Deploy](assets/docker-success.png)
 
-### 🏗️ Architecture Diagram
+###  Architecture Diagram
 ![Architecture](assets/architecture.png)
 
 ---
 
 
-## 📚 What I Learned
+##  What I Learned
 
 ```
 ✅ AWS EC2 instance setup and configuration
@@ -348,7 +348,7 @@ sudo ./svc.sh start
 ```
 ---
 
-## 🗂️ Workflow Files
+##  Workflow Files
 
 | File | Purpose |
 |------|---------|
@@ -363,12 +363,11 @@ sudo ./svc.sh start
 
 | Role | Person |
 |------|--------|
-| 🎯 Project Guided by | **[Awais Latif](https://www.linkedin.com/in/m-awais-latif)** — Senior DevOps Engineer |
-| 📦 Original Project | **[Mahadi Hassan Razib](https://github.com/mahadihassanrazib)** |
+|  Project Guided by | **[Awais Latif](https://www.linkedin.com/in/m-awais-latif)** —  DevOps Engineer |
 
 ---
 
-## 👩‍💻 Author
+##  Author
 
 ** ILSA MUKHTAR  **
 
@@ -377,7 +376,7 @@ sudo ./svc.sh start
 
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the **MIT License** — see the
 [LICENSE](LICENSE) file for details.
